@@ -1,17 +1,18 @@
 import Image from "next/image";
+import Link from "next/link";
 
 interface ProjectCardProps {
   title: string;
   description: string;
   imageUrl: string;
-  link: string;
+  slug: string;
 }
 
 export function ProjectCard({
   title,
   description,
   imageUrl,
-  link,
+  slug,
 }: ProjectCardProps) {
   return (
     <div className="w-full xl:w-[calc(50%-1rem)] mb-8 xl:mb-12">
@@ -31,11 +32,12 @@ export function ProjectCard({
         </div>
         <div className="flex-3 flex flex-col">
           <p className="text-gray-200 text-sm mb-4 line-clamp-2">{description}</p>
-          <button
+          <Link
             className="flex items-center text-blue-300 hover:text-white transition-colors cursor-pointer w-fit"
+            href={`/projects/${slug}`}
           >
             Read more
-          </button>
+          </Link>
         </div>
       </div>
     </div>

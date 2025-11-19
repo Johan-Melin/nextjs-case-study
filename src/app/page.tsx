@@ -1,14 +1,7 @@
 import { ProjectCard } from "@/components/ProjectCard";
+import { projects } from "./projects/[slug]/page";
 
 export default function Home() {
-  const projects = [
-    {
-      title: "Project 1",
-      description: "Description of project 1",
-      imageUrl: "/images/projects/project-1/project-1-cover.jpg",
-      link: "/project-1",
-    },
-  ];
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-4">
       
@@ -29,7 +22,7 @@ export default function Home() {
             title={project.title}
             description={project.description}
             imageUrl={project.imageUrl}
-            link={project.link}
+            slug={project.slug}
           />
         ))}
       </section>

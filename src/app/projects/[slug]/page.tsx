@@ -1,6 +1,7 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getProjectSlugs, getProjectBySlug } from "@/lib/projects";
 import { notFound } from "next/navigation";
+import { mdxComponents } from "@/mdx-components";
 
 export async function generateStaticParams() {
   const slugs = await getProjectSlugs();
@@ -14,8 +15,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   return (
     <article>
-      <h1>{project.frontmatter.title}</h1>
-      <MDXRemote source={project.content} />
+      <MDXRemote source={project.content} components={mdxComponents} />
     </article>
   );
 }

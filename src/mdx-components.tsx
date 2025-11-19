@@ -1,6 +1,6 @@
 import type { MDXComponents } from 'mdx/types'
 
-const components = {
+export const mdxComponents: MDXComponents = {
   // Headings with proper spacing
   h1: ({ children }) => (
     <h1 className="text-4xl font-bold mt-12 mb-6 text-gray-900 dark:text-white">
@@ -42,5 +42,5 @@ const components = {
 } satisfies MDXComponents
  
 export function useMDXComponents(): MDXComponents {
-  return components
+  return mdxComponents;
 }

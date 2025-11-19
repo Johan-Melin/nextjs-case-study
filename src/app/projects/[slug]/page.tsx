@@ -1,27 +1,21 @@
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { getProjectSlugs, getProjectBySlug } from "@/lib/projects";
 import { notFound } from "next/navigation";
 
-export const projects = [
-    {
-      title: "Project 1",
-      description: "Description of project 1",
-      imageUrl: "/images/projects/project-1/project-1-cover.jpg",
-      slug: "project-1",
-    },
-  ];
-
-export function generateStaticParams() {
-  return projects.map(({ slug }) => ({ slug }));
+export async function generateStaticParams() {
+  const slugs = await getProjectSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = await getProjectBySlug(slug).catch(() => null);
   if (!project) return notFound();
 
   return (
     <article>
-      <h1>{project.title}</h1>
-      {/* render MDX or sections */}
+      <h1>{project.frontmatter.title}</h1>
+      <MDXRemote source={project.content} />
     </article>
   );
 }

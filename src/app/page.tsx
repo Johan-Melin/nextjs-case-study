@@ -1,7 +1,20 @@
 import { ProjectCard } from "@/components/ProjectCard";
-import { projects } from "./projects/[slug]/page";
+import { getProjectSlugs, getProjectBySlug } from "@/lib/projects";
+export default async function Home() {
+  const slugs = await getProjectSlugs();
 
-export default function Home() {
+  const projects = await Promise.all(
+    slugs.map(async (slug) => {
+      const { frontmatter } = await getProjectBySlug(slug);
+      return {
+        slug,
+        title: frontmatter.title,
+        description: frontmatter.description,
+        imageUrl: frontmatter.coverImage,
+      };
+    }),
+  );
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-4">
       
